@@ -1,0 +1,172 @@
+/*
+Coding Temple Prework Assignment: Create Portfolio Website
+
+Instructions: https://codingtemple.github.io/python/week3/
+    Create a website using text, lists, include at least two links, two different images and a form. 
+    Use as many different CSS styles to help design your website. 
+    We would like you to create a website that tells us about you. You can include any text, or images on your website. 
+    We would like you to talk about yourself, your background, hobbies and why you want to become a web developer. 
+    Make it as elaborate as possible.
+
+Created By: JulieAnn Scherer
+Date: July 10, 2022
+*/
+
+
+/* ***************************** Navigation ***************************** */
+/* https://www.w3schools.com/css/css_navbar.asp */
+
+.nav ul /* list element in nav element */ {
+    list-style-type: none; /* remove bullet points */
+    margin: 0; /* remove default margin */
+    padding: 0; /* remove default padding */
+    width: 100%; /* full width of the page */
+    background-color: darkturquoise; /* background color fills full width of list */
+    overflow: hidden; /* background color doesnt show up otherwise... |?| */
+}
+
+.nav li {
+    float: left; /* similar to 'display: inline' but used with other block elements */
+}
+
+.nav a { /* a href attribute */
+    display: block; /* use block to specify margin, padding, width, etc. like ggarrange in R */
+    padding: 20px;
+    text-align: center;
+    color: black;
+    text-decoration: none; /* remove underline */
+}
+
+.active > a {
+    background-color: black;
+    color: white;
+}
+
+
+/* ******************************* Layout ******************************* */
+/* https://www.w3schools.com/css/css3_flexbox_container.asp */
+/* https://devpractical.com/right-sidebar-html-css/ */
+
+.flex-layout { /* this class identifies and arranges multiple section elements, similar to ggarrange in R */
+    display: flex;  /* the flex display automatically adjusts box sizes, unlike the float attribute */
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.box { /* design for each section in flex layout */
+    display: block;
+    background-color: Azure;
+    padding: 0px 10px; /* height(px) width(px) ~ cushion around border */
+    margin: 10px 10px; 
+}
+
+main#about {
+    flex: 2;
+}
+
+main#mystory {
+    flex: 2;
+}
+
+aside#sidebar {
+    flex: 1;
+}
+
+
+/* ******************************* Styles ******************************* */
+* {
+    font-family: Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 32px;
+    font-variant: small-caps;
+    text-align: center;
+    border-bottom: double;
+    border-color: darkturquoise;
+    padding-bottom: 4px;
+}
+
+h2 {
+    font-variant: small-caps;
+}
+
+main#about * {
+    text-align: center;
+}
+
+main#about img.selfie {
+    float: left;
+    padding-right: 20px; 
+}
+
+main#mystory p {
+    text-align: justify;
+    margin: 0px 12px 10px 8px; /* top, right, bottom, and left */
+    font-size: 14px;
+}
+
+
+main#mystory img {
+    float: right;
+    padding-left: 20px; 
+}
+
+aside#sidebar {
+    background-color: dimgray;
+    color: mintcream;
+}
+
+aside#sidebar p {
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 13px;
+}
+
+aside#sidebar img {
+    vertical-align: middle; /* https://stackoverflow.com/questions/489340/vertically-align-text-next-to-an-image */
+    padding-right: 8px; 
+    padding-left: 2px;
+    width: 32px;
+    height: auto;
+}
+
+aside#sidebar h1 {
+    color: paleturquoise;
+    border-color: azure;    
+}
+
+form#contact input, label, textarea { /* all the HTML form elements */
+    font-family: monospace;
+}
+
+form#contact label {
+    display: inline-block; /* https://stackoverflow.com/questions/21704736/set-margin-between-label-and-input-in-html-form */
+    padding-top: 1em;
+    font-size: 1.2em;
+}
+
+form#contact .textbox {
+    font-variant: small-caps;
+    text-align: left;
+    border-style: groove;
+    font-size: 18px;
+}
+
+form#contact #button {
+    border-radius: .4em; /* rounded corners */
+    padding: 0.33em 1em;
+    margin: 4px 0px 4px 0px; /* top, right, bottom, and left */
+    background-color: black;
+    color: white; 
+    cursor: pointer;
+    /* https://www.w3schools.com/css/css3_buttons.asp */
+}
+
+footer {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    padding: 5px;
+    margin-right: 20px;
+}

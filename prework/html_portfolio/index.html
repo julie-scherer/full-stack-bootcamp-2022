@@ -1,0 +1,121 @@
+<!--
+Coding Temple Prework Assignment: Create Portfolio Website
+
+Instructions: https://codingtemple.github.io/python/week3/
+    Create a website using text, lists, include at least two links, two different images and a form. 
+    Use as many different CSS styles to help design your website. 
+    We would like you to create a website that tells us about you. You can include any text, or images on your website. 
+    We would like you to talk about yourself, your background, hobbies and why you want to become a web developer. 
+    Make it as elaborate as possible.
+
+Created By: JulieAnn Scherer
+Date: July 10, 2022
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="mystyle.css">
+</head>
+
+<body>
+    <!--Navigation Bar-->
+    <div class="nav">
+        <ul id="nav">
+            <li class="active"><a href="index.html">Home</a></li> <!-- Add an active class to indicate what page the person is on -->
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Projects</a></li>
+        </ul>
+    </div>
+
+    <!--Page Layout-->
+    <div class="flex-layout">
+
+        <!--About me-->
+        <main id="about" class="box">        
+            <h1>About Me</h1>
+            <h2>Hello, I'm Julie! &#128075 Welcome to my site!</h2> <!--Emojis: https://www.w3schools.com/charsets/ref_emoji_smileys.asp-->
+            <!--<img src="images/computer_geek.jpg" style="display:block; max-width:350px;">-->
+            <p class="selfie"><img src="images/computer_geek.jpg" class="selfie" style="max-width:280px;"><br>Some of my hobbies include going to shows/concerts, cooking, playing board games, hula hooping, painting, and watching TV. A while back, I took an interest in zen buddhism and have been practicing meditation for some time now. Another big part of my life is advocating for mental health. I strive to live a healthy, compassionate, and mindful life in hopes that I can inspire others to priortize their mental and physical wellbeing in our fast-paced, work-oriented world. &#128523</p>
+            <br>
+            <h2>Chicago Livin'</h2>
+            <div>
+                <img src="images/cubs_stadium.png" style="max-height:270px;">
+                <img src="images/chi_flag.png" style="max-height:270px;">
+            </div>    
+            <p>I was born and raised in central Illinois, though I am a Chicagoan at heart. I moved to the city in 2018 and have loved living here ever since. I love going to Cubs games and trying all the amazing food here.</p>
+            <h2>My Roommates</h2>
+            <div>
+                <img src="images/kaya_little.jpg" style="max-height:380px;">
+                <img src="images/kaya_ponys.JPG" style="max-height:380px;">
+                <br>
+                <img src="images/oskee.JPG" style="max-height:180px;">
+                <img src="images/oskee_nametag.jpg" style="max-height:180px;">
+            </div>
+            <p>Meet Kaya and Oskee. Kaya is the german-shepherd husky and Oskee Meow Meow is the tabby, named after the U of I chant "Oskee Wow Wow." They have been my little buddies since they were just a couple months old. &#128155</p>
+        </main>
+        
+        <!--Background, hobbies, why I want to be a web developer-->
+        <main id="mystory" class="box">
+            <h1>Background</h1>
+            <h2>My Story</h2>
+            <p><img src="images/uiuc_alum_thumbnail.jpeg" style="max-width:200px;">
+                I went to the University of Illinois Champaign-Urbana for undergraduate school. I studied biology, chemistry, calculus, statistics, psychology, and neuroscience. This was also when I was first introduced to Python, deep learning, and neural networks. I received my BS in Psychology with a concentration in Cognitive Neuroscience in May 2018. I was honored to receive the Manny Donchin Award for Outstanding Student in the Cognitive Neuroscience Division and Distinction in Psychology for my research work and honor's thesis: “Turning a Blind Eye: The Impact of Individual Differences on Focused Attention."
+                <br><br>
+                After college, I pursed a master's degree in Measurement, Evaluation, Statistics, and Assessment at the University of Illinois at Chicago. I learned a wide array of mathematics and statistics including advanced linear regression, ANOVAs, inter-rater reliability, nonparametric modeling, and so on, and worked with many datasets throughout my educational training. After being introduced in undergraduate school, I was intrigued to learn more about programming so I also took classes in Python basics and R programming where we solved complex mathematical problems as part of the curriculum. I further developed my programming skills by engaging in self-learning and finding ways to code in my research and work-related tasks.
+                <br><br>
+                I started by working in research as an undergraduate and continued to work in many different labs until the end of my master's (approx 5 years). There was one project in particular that sparked a new found passion for programming and advanced statistics. I worked on an independent project looking at changes in dynamic relationships between frontal and subcortical brain regions in patients who received cognitive behavioral therapy (CBT) or selective serotonin reuptake inhibitors (SSRIs). I developed several technical skills while completing this project like using MATLAB to batch SPM analyses, FSL to create mask images, R to analyze and graphically represent data, and Python sporadically to accomplish various milestones of the project. I had hoped to pursue a PhD in computational neuroscience after my master's but decided to step back and take a break once the pandemic hit. This is just the beginning of what led me down a new trajectory.
+                <br><br>
+                I took an administrative position as an academic program coordinator while I decided what my next steps would be. I was very fortunate to work at an institution that allowed me to capitalize on my strengths and make data analysis, programming, and tech such an integral part of my role. I always knew it was the analytical, investigative, and methodological aspects of research that I was most drawn toward, but academia was all I knew. When I started to learn more and get more comfortable with business operations, I started to explore alternate paths I could take. This is when I discovered data science. About a year into the position, after proposing, designing, and initiating several data-driven projects, I felt I had done my part in setting a solid foundation for the program to be successful moving forward. It was time for me to follow my passion for programming and data analytics and transition into a new career.
+            </p>
+            <h2>Career Aspirations</h2>
+            <p>Since I was a kid, I always loved and excelled at web design, tech, maths, problem solving puzzles, etc. which led me to think research would be a good career for me. During one of my first research positions, I struggled to learn probability and statistics so I went on to get a formal degree in statistics. As it turns out, I fell in love with statistics, especially my nonparametric stats class which I later learned was teaching me machine learning algorithms. It seems I was always headed down this path, whether I could see it or not. I want to (eventually) become a data scientist because it encompasses all the technical skills I thrive in and qualities I strive to possess. But data science, at least as it stands right now, isn't just about how good you are at advanced statistics and programming. Employers are also looking for experience in the field, excellent communication, leadership skills, collaboration, field expertise, and so much more. So, before I bite off more than I can chew, I am going to start by learning the basics of software engineering as a web developer. "Why web development?" you ask. First of all, tell me it's not fun and rewarding as hell! -- No, but in all seriousness, data scientists often rely on web developers to put their work into production so what's more powerful than a data scientist who can actually put their work into production? Not to mention, it's much easier to go from software engineer to data scientist than the other way around. Now, granted, if someone comes along and thinks I have what it takes to be a data scientist at this point in my career, I am not going to be the one to tell them no. &#128521</p>
+        </main>
+
+        <!--Contact-->
+        <aside id="sidebar" class="box">
+            <div id="skills">
+                <h1>Skills</h1>
+                <ul>
+                    <li>Python</li>
+                    <li>R</li>
+                    <li>Excel</li>
+                    <li>Statistics</li>
+                    <li>Data analysis</li>
+                </ul>
+            </div>
+            <br>
+            <div id="contact">
+                <h1>Contact me</h1>
+                <p><a href="https://www.linkedin.com/in/julieann-scherer/" target="_blank"><img src="images/linkedin-logo.png" alt="LinkedIn Logo"></a>linkedin.com/schererjulie</p>
+                <p><a href="https://github.com/schererjulie" target="_blank"><img src="images/github-logo.png" alt="Github Logo"></a>github.com/schererjulie</p>
+                <p><a href="mailto: schererjulie96@gmail.com" target="_blank"><img src="images/gmail-logo.png" alt="Gmail Logo"></a>schererjulie96@gmail.com</p>
+                <br>
+                <!--Contact form-->
+                <!--  https://www.w3schools.com/html/html_form_elements.asp -->
+                <form action="#" id="contact">
+                    <!-- single-line input field -->
+                    <label for="name">Name</label><br>
+                    <input type="text" class="textbox" placeholder="your name" style="width:98%; height:20px;">
+                    <br>
+                    <!-- multi-line input field -->
+                    <label for="body">Message</label><br>
+                    <textarea class="textbox" placeholder="your message" style="width:98%; height:100px;"></textarea> <!-- use style attribute so the width of the field adjusts with the size of the page -->
+                    <br>
+                    <!-- submit button -->
+                    <input type="submit" class="input" id="button" value="Submit"> <!-- ref: https://www.w3schools.com/html/html_forms_attributes.asp, https://www.w3schools.com/php/default.asp -->
+                </form>
+            </div>      
+        </aside>
+    </div>
+    <footer>
+        &copy &nbsp; JulieAnn Scherer, 2022. All rights reserved.
+    </footer>
+
+</body>
+</html>
