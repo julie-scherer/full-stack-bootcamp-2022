@@ -5,10 +5,91 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- ************************** CONTAINER ************************** -->
+    <!-- The container belox below includes:
+        (1) main content,
+        (2) footer
+    -->
+    
+    <div class="container">
 
+        <!-- ################ --------- MAIN --------- ################ -->
+        <!-- This includes:
+            (1) login box,
+            (2) new account
+        -->
+        <div class="main"> 
+
+            <!-- +++++++++ Login box +++++++++ -->
+            <!-- This includes: 
+                (1) sign in header,
+                (2) username label and input text box, 
+                (3) password label and 'forgot password' link,
+                (4) password input text box,
+                (5) continue button,
+                (6) help hyperlink and list
+            -->
+            <div class="login-box">
+
+                <!-- (1) sign in header -->
+                <h1>Sign In</h1>
+                <form>
+                    <!-- (2) enter email or phone number w/ label -->
+                    <div class="username">
+                        <label for="account">Email or mobile phone number</label>
+                        <input type="text" placeholder="Enter Email" id="usr">
+                    </div>
+                    <br><br>
+                    <!-- (3) password label and 'forgot password' link -->
+                    <div class="password"> 
+                        <label for="password">Password</label>
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    <!--(4) enter password -->
+                    <input type="text" placeholder="Enter Password" id="pwd">
+                    <br>
+                    <!-- (5) continue button (submit form) -->
+                    <input type="button" value="Continue" id="cont">
+                </form>
+
+                <!-- (6) 'need help?' link' and unordered list -->
+                <!-- ref: https://www.w3schools.com/tags/tag_details.asp -->
+                <details class="help">
+                    <summary><a href="#">Need Help?</a></summary>
+                    <ul>
+                        <li><a href="#">Forgot your password?</a></li>
+                        <li><a href="#">Other issues with Sign-In?</a></li>
+                    </ul>
+                </details>
+                
+            </div>
+
+            <!-- +++++++++ New account +++++++++ -->
+            <!-- This includes:
+                (1) 'New to Amazon?' text,
+                (2) create account button
+             -->
+            <div class="new-account">
+                <p>New to Amazon?</p>
+                <input type="button" value="Create Your Amazon Account" id="create">
+            </div>
+
+        </div>
+
+        <!-- ################ --------- FOOTER --------- ################ -->
+        <div class="footer">
+            <div class="ftlinks">
+                <a href="#">Conditions of Use</a>
+                <a href="#">Privacy Notice</a>
+                <a href="#">Help</a>
+            </div>
+            <p id="copyright">&copy &nbsp; 1996-2022, Amazon.com, Inc. or its affiliates</p>
+        </div>
+        
+    </div>
 </body>
 </html>
 
