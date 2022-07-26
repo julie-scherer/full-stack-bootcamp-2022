@@ -1,0 +1,45 @@
+Brown Bat,19.9
+Giant Armadillo,18.1
+North American Opossum,18
+Python,18
+Owl Monkey,17
+Human (infant),16
+Tiger,15.8
+Tree shrew,15.8
+Squirrel,14.9
+Western Toad,14.6
+Ferret,14.5
+Three-toed Sloth,14.4
+Golden Hamster,14.3
+Platypus,14
+Lion,13.5
+Gerbil,13.1
+Rat,12.6
+Cat,12.1
+Cheetah,12.1
+Mouse,12.1
+Rhesus Monkey,11.8
+Rabbit,11.4
+Jaguar,10.8
+Duck,10.8
+Dog,10.6
+Bottle-nosed dolphin,10.4
+Star-nosed Mole,10.3
+Baboon,10.3
+European Hedgehog,10.1
+Squirrel Monkey,9.9
+Chimpanzee,9.7
+Guinea Pig,9.4
+Human (adult),8
+Pig,7.8
+Guppy (fish),7
+Gray Seal,6.2
+Human (elderly),5.5
+Goat,5.3
+Cow,3.9
+Asiatic Elephant,3.9
+Sheep,3.8
+African Elephant,2
+Donkey,3.1
+Horse,2.9
+Giraffe,1.9
