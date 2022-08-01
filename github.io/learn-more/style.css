@@ -1,0 +1,79 @@
+body {
+    background-image: url("../images/treasure_map_background.png");
+}
+
+p {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: justify;
+}
+
+.container {  
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 30px; 
+    grid-template-areas:
+        " background-box navbar "
+        " background-box contact-box ";
+}
+
+.navbar {grid-area: navbar;}
+.background-box {grid-area: background-box;}
+.contact-box {grid-area: contact-box;}
+
+
+div[class$='box'] {
+    border-style: solid;
+    border-width: thin;
+    border-color: grey;
+    background-color: rgb(114, 113, 113, 0.7);
+    padding: 10px;
+}
+
+div[class$='box']:hover {
+    background-color: rgba(12, 143, 199, 0.9);
+
+}
+
+.collegepic {
+    float: right;
+    padding: 15px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+/* -------------------- CONTACT ME ---------------------- */
+
+form > * {
+    display: block;
+}
+
+form > label {
+    font-weight: bold;
+}
+
+input[type=text], textarea {
+    display: block;
+    width: 98%;
+    font-variant: small-caps;
+    color: black;
+    font-size: 16px;
+}
+
+textarea {
+    height: 120px;
+}
+
+input[type=button] {
+    border-radius: .4em; /* rounded corners */
+    margin-top: 15px;
+    background-color: black;
+    color: white; 
+    cursor: pointer;
+    font-size: small;
+}
+
+.contact > h1 {
+    font-size: 22px;
+}

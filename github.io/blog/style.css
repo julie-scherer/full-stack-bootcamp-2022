@@ -1,0 +1,48 @@
+body {
+    background-image: none;
+    background-color:rgba(130, 198, 244, 0.4);
+}
+
+* {
+    text-align: left;
+    color: black;
+}
+
+.container {
+    border-style: solid;
+    border-color: grey;
+    background-color: rgba(119, 113, 113, 0.4);
+    padding-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+summary {
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: black;
+    color: white;
+}
+
+summary:hover {
+    background-color: rgba(12, 143, 199);
+    color: black;
+    border-style: dashed;
+    border-color: black;
+}
+
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    margin-left: 13px;
+}
+
+
+

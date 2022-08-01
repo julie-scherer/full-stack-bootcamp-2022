@@ -1,0 +1,46 @@
+/* -------------------- NAVIGATION BAR ---------------------- */
+.navbar {  
+    display: flex;
+    background-color:  rgba(36, 33, 33, 0.85);
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-bottom: 10px;
+    position: sticky;
+}
+
+.navpages, .social-icons {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.navpages > a {
+    color: white;
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.social-icons a {
+    padding: 5px;
+}
+
+.social-icons img {
+    max-height: 32px;
+    height: 100%;
+    width: auto;
+}
+
+.navpages a:hover {
+    border-style: solid;
+    color: black;
+    background-color: white;
+    border: black;
+}
+
+.social-icons a:hover {
+    border-style: solid;
+    border-color: grey;
+}
