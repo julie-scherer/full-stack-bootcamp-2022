@@ -107,6 +107,20 @@ WHERE customer.address_id IN (
 --Jason Morrissey
 --Leonard Schofield
 --Willie Markham
+--Jordan Archuleta
+--Perry Swafford
+--Kimberly Lee
+
+---To get data from multiple tables, use join instead of subquery
+SELECT customer.first_name, customer.last_name, address.district, country.country 
+FROM customer
+JOIN address
+ON customer.address_id  = address.address_id 
+JOIN city
+ON city.city_id = address.city_id 
+JOIN country
+ON country.country_id = city.country_id 
+WHERE country.country = 'Argentina';
 
 
 
@@ -117,8 +131,20 @@ FROM film
 JOIN film_category
 ON film.film_id = film_category.film_id
 GROUP BY film_category.category_id
-ORDER BY COUNT(*) DESC;
+ORDER BY COUNT(*) DESC
+LIMIT 1;
 --Output: category = 15, count = 74
+
+
+--To get category name, join category table on category_id 
+SELECT film_category.category_id, category.name, COUNT(*)
+FROM category 
+JOIN film_category
+ON category.category_id  = film_category.category_id
+GROUP BY film_category.category_id, category.name
+ORDER BY COUNT(*) DESC
+LIMIT 1;
+--Output: category = 15, name = Sports
 
 
 
@@ -138,6 +164,18 @@ LIMIT 1;
 
 --7. Which actor has been in the least movies? 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+SELECT actor.actor_id, actor.first_name, actor.last_name , COUNT(*) AS film_count
+FROM actor 
+JOIN film_actor 
+ON actor.actor_id = film_actor.actor_id 
+GROUP BY actor.actor_id
+ORDER BY film_count DESC
+LIMIT 1;
+--Output
+--107, Gina, Degeneres, 42
+
+
+--This answer gives the film with the least number of actors in it
 SELECT film.film_id, film.title, film.description, film.release_year, COUNT(*) AS actor_count
 FROM film 
 JOIN film_actor 
@@ -200,7 +238,9 @@ FROM (SELECT actor_id, COUNT(*) AS actor_count
 	  ) AS actors_in_films
 JOIN actor 
 ON actor.actor_id = actors_in_films.actor_id
-WHERE actors_in_films.actor_count > 23 AND actors_in_films.actor_count < 26;
+WHERE actors_in_films.actor_count > 23 AND actors_in_films.actor_count < 26
+LIMIT 10;
+
 --Output
 --Nick Wahlberg
 --Joe Swank
