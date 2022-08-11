@@ -10,7 +10,7 @@
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- -- 
 --1. How many actors are there with the last name ‘Wahlberg’? 
-SELECT COUNT(last_name)
+SELECT COUNT(last_name) -- COUNT(*)
 FROM actor
 WHERE last_name = 'Wahlberg';
 --Output: 2
