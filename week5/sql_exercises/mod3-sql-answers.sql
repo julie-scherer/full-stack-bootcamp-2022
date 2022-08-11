@@ -135,7 +135,6 @@ ORDER BY COUNT(*) DESC
 LIMIT 1;
 --Output: category = 15, count = 74
 
-
 --To get category name, join category table on category_id 
 SELECT film_category.category_id, category.name, COUNT(*)
 FROM category 
@@ -173,7 +172,6 @@ ORDER BY film_count DESC
 LIMIT 1;
 --Output
 --107, Gina, Degeneres, 42
-
 
 --This answer gives the film with the least number of actors in it
 SELECT film.film_id, film.title, film.description, film.release_year, COUNT(*) AS actor_count
