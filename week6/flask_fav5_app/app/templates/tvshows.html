@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1>Five Favorite Television Series</h1>
+
+    <div class="tv-table">
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Seasons</th>
+                <th>Release Year</th>
+                <th>Rotten Tomatoes</th>
+                <th>IMDb Ratings</th>
+            </tr>        
+            {%- for show in shows %}
+            <tr>
+                <td>{{ show.title }}</td>
+                <td>{{ show.genre }}</td>
+                <td>{{ show.no_seasons }}</td>
+                <td>{{ show.release_year }}</td>
+                <td>{{ show.rotten_tomatoes }}</td>
+                <td>{{ show.imdb_rating }}</td>
+            </tr>
+            {%- endfor %}
+        </table>    
+    </div>
+{% endblock content %}

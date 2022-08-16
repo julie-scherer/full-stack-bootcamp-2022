@@ -1,0 +1,8 @@
+.tv-table table {
+    border: 1px solid;
+    width: 100%;
+}
+
+.tv-table tr {
+    text-align: center;
+}
