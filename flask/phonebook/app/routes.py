@@ -32,6 +32,7 @@ def addressbook():
                             city=city,
                             state=state,
                             zip=zip)
+        print(f"Instance created at {new_address}")
         flash(f"Whitepage created for {form.firstname.data} {form.lastname.data}!, 'success'")
         return redirect(url_for('home'))
     flash('Submission Unsuccessful. Please check you have entered the correct information.', 'danger')
