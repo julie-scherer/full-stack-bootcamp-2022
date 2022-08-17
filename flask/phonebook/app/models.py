@@ -1,7 +1,7 @@
 from app import db
 from datetime import datetime
 
-class AddressBook(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(20),nullable=False)
     lastname = db.Column(db.String(20),nullable=False)
