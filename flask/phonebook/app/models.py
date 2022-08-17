@@ -1,7 +1,7 @@
 from app import db
 from datetime import datetime
 
-class Address(db.Model):
+class AddressBook(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(20),nullable=False)
     lastname = db.Column(db.String(20),nullable=False)
@@ -13,3 +13,12 @@ class Address(db.Model):
     state = db.Column(db.String(2),nullable=False)
     zip = db.Column(db.String(10),nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    # db.session.add() and db.session.commit() required to save instance to database
+    def __init__(self,**kwargs) -> None:
+        super().__init__(**kwargs)
+        db.session.add(self)
+        db.session.commit()
+    
+    def __repr__(self):
+        return f"User('{self.firstname}', '{self.lastname}', '{self.phone}')"        
