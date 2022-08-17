@@ -361,8 +361,8 @@ def main():
                             propmanage = monthly_expenses.run('monthly', 'expense', 'property management')
                             monthly_expenses.add_propmanage_cost(propmanage)
                         elif expense_to_add == 'misc':
-                            propmanage = monthly_expenses.run('monthly', 'expense', 'miscellaneous')
-                            monthly_expenses.add_propmanage_cost(propmanage)
+                            misc = monthly_expenses.run('monthly', 'expense', 'miscellaneous')
+                            monthly_expenses.add_propmanage_cost(misc)
                         elif expense_to_add == 'none':
                             print("Exiting...")
                             break
@@ -417,6 +417,8 @@ def main():
                     continue
 
         elif menu_option == "show":
+            annual_cashflow = CashFlow(monthly_income.total_income, monthly_expenses.total_expenses)
+            roi = ROI(investments.total_investment, annual_cashflow.total_cashflow)
             showing = True
             while showing:
                 view = input("What would you like to view? income / expenses / cashflow / investments / ROI / none ").lower()
@@ -424,10 +426,10 @@ def main():
                     print(f"Your total monthly income is {monthly_income}.")
                 
                 elif view == "expenses":
-                    print(f"Your total monthly expenses are {investments}.")
+                    print(f"Your total monthly expenses are {monthly_expenses}.")
                 
                 elif view == "cashflow":
-                    print(f"Your total annual cashflow is {investments}.")
+                    print(f"Your total annual cashflow is {annual_cashflow}.")
                 
                 elif view == "investments":
                     print(f"Your total investment amount is {investments}.")
@@ -443,8 +445,6 @@ def main():
                         print("ROI cannot be calculated.")
                         break
                     else:
-                        annual_cashflow = CashFlow(monthly_income.total_income, monthly_expenses.total_expenses)
-                        roi = ROI(investments.total_investment, annual_cashflow.total_cashflow)
                         print(f"Total monthly income: {monthly_income}")
                         print(f"Total monthly expenses: {monthly_expenses}")
                         print(f"Total annual cashflow: {annual_cashflow}")
