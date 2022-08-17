@@ -8,5 +8,6 @@ app = Flask(__name__, template_folder="templates")
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config.from_object(Config)
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-from . import routes
+from . import routes, models
