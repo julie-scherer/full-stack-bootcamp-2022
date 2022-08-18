@@ -22,11 +22,18 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():   # note: form checks for valid email and username
-        user = User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)   # 
-        
-        db.session.add(user)
-        db.session.commit() # call db commit method to save user to database        
+        # existing_user = User.query.filter((User.email == form.email.data) | (User.username == form.username.data)).first()
+        # if existing_user:
+        #     flash('A user with that username or email already exists.', 'danger')
+        #     return redirect(url_for('signup'))
+
+        # create instance of User (from models.py) with form data
+        user = User(
+                username=form.username.data, 
+                email=form.email.data,
+                password=form.password.data
+                )
+        # set_password(form.password.data), db.session and db.session.add(user) are called in models.py to save user to database
         flash("Your account has been created! You are now able to log in.", 'success')
         return redirect(url_for('login'))
     return render_template('register.html',form=form)
@@ -39,37 +46,41 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user and user.check_password(password=form.password.data):
+        if user is not None and user.check_password(form.password.data):
             login_user(user)
             flash(f"{form.username.data} successfully logged in.", 'success')
             return redirect(url_for('home'))
-            # next_page = request.args.get('next')
-            # return request.args.get('next') if next_page else redirect(url_for('home'))
         else:
             flash(f"Login Unsuccessful. Please check username and password.", 'danger')
     return render_template('login.html',form=form)
 
 
-@app.route('/address', methods=["GET","POST"])
-@login_required
-def address():
-    # if not current_user.is_authenticated:
-    #     flash(f"You must be logged in to access this page.", 'info')
-    #     return redirect(url_for('login'))
-    form = AddressForm()
-    if form.validate_on_submit():
-        address = Address(firstname=form.firstname.data, lastname=form.lastname.data, phone=form.phone.data, 
-                        email=form.email.data, street1=form.street1.data, street2=form.street2.data,
-                        city=form.city.data, state=form.state.data, zip=form.zip.data)
-        db.session.add(address)
-        db.session.commit()
-        flash(f"Address added for {form.firstname.data} {form.lastname.data} at {form.street1.data} {form.street2.data} {form.city.data} {form.state.data} {form.zip.data}, 'success'")
-        return redirect(url_for('home'))
-    flash('Submission Unsuccessful. Please check you have entered the correct information.', 'danger')
-    return render_template('address.html',form=form)
-
-
 @app.route("/logout")
 def logout():
     logout_user()
+    flash(f"Logged out successfully",'success')
     return redirect(url_for('home'))
+
+
+@app.route('/address', methods=["GET","POST"])
+@login_required
+def address():
+    form = AddressForm()
+    if form.validate_on_submit():
+        address = Address(
+            firstname=form.firstname.data, 
+            lastname=form.lastname.data,             
+            phone=form.phone.data, 
+            street1=form.street1.data, 
+            street2=form.street2.data,
+            city=form.city.data, 
+            state=form.state.data, 
+            zip=form.zip.data,
+            user_id=current_user.id
+            )
+        # db.session and db.session.add(user) are called in models.py to save user to database
+        flash(f"Address added for {form.firstname.data} {form.lastname.data} at {form.street1.data} {form.street2.data} {form.city.data} {form.state.data} {form.zip.data}", 'success')
+        return redirect(url_for('home'))
+    return render_template('address.html',form=form)
+
+

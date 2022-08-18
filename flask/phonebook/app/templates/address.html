@@ -1,48 +1,121 @@
 {% extends "layout.html" %}
 {% block content %}
+<h2>Address Book</h2>
+<div class="content-section">
     <form method="post">
         {{ form.csrf_token }}
-        <fieldset class="form-group"> <!-- bootstrap -->
-            <legend class="border-bottom mb-4">Get Listed in Our Phonebook Today!</legend>
+        <fieldset class="form-group"> 
+            
             <div class="form-group">
-                {{ form.firstname.label }}
-                {{ form.firstname(class='form-control', placeholder='First Name') }}
+                <!-- {{ form.firstname.label }} -->
+                {% if form.firstname.errors %}
+                    {{ form.firstname(class="form-control form-control-lg is-invalid", placeholder='First Name') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.firstname.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.firstname(class="form-control form-control-lg", placeholder='First Name') }}
+                {% endif %}
             </div>
+            
             <div class="form-group">
-                {{ form.lastname.label }}
-                {{ form.lastname(class='form-control', placeholder='Last Name') }}
+                {% if form.lastname.errors %}
+                    {{ form.lastname(class="form-control form-control-lg is-invalid", placeholder='Last Name') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.lastname.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.lastname(class="form-control form-control-lg", placeholder='Last Name') }}
+                {% endif %}
             </div>
+            
             <div class="form-group">
-                {{ form.phone.label }}
-                {{ form.phone(class='form-control', placeholder='Phone Number') }}
+                {% if form.phone.errors %}
+                    {{ form.phone(class="form-control form-control-lg is-invalid", placeholder='Phone Number') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.phone.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.phone(class="form-control form-control-lg", placeholder='Phone Number') }}
+                {% endif %}
             </div>
+
             <div class="form-group">
-                {{ form.email.label }}
-                {{ form.email(class='form-control', placeholder='Email Address') }}
+                {% if form.street1.errors %}
+                {{ form.street1(class="form-control form-control-lg is-invalid", placeholder='Address Line 1') }}
+                <div class="invalid-feedback">
+                    {% for error in form.street1.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                    {{ form.street1(class="form-control form-control-lg", placeholder='Address Line 2') }}
+                {% endif %}
             </div>
+            
             <div class="form-group">
-                {{ form.street1.label }}
-                {{ form.street1(class='form-control', placeholder='Street Address Line 1') }}
+                {% if form.street2.errors %}
+                    {{ form.street2(class="form-control form-control-lg is-invalid", placeholder='Address Line 2') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.street2.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.street2(class="form-control form-control-lg", placeholder='Address Line 2') }}
+                {% endif %}
             </div>
+
             <div class="form-group">
-                {{ form.street2.label }}
-                {{ form.street2(class='form-control', placeholder='Street Address Line 2') }}
+                {% if form.city.errors %}
+                    {{ form.city(class="form-control form-control-lg is-invalid", placeholder='City/Town') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.city.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.city(class="form-control form-control-lg", placeholder='City/Town') }}
+                {% endif %}
             </div>
+
             <div class="form-group">
-                {{ form.city.label }}
-                {{ form.city(class='form-control', placeholder='City/Town') }}
+                {% if form.state.errors %}
+                    {{ form.state(class="form-control form-control-lg is-invalid", placeholder='State') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.state.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.state(class="form-control form-control-lg", placeholder='State') }}
+                {% endif %}
             </div>
+
             <div class="form-group">
-                {{ form.state.label }}
-                {{ form.state(class='form-control', placeholder='State') }}
-            </div>
-            <div class="form-group">
-                {{ form.zip.label }}
-                {{ form.zip(class='form-control', placeholder='Postal/Zip Code') }}
+                {% if form.zip.errors %}
+                    {{ form.zip(class="form-control form-control-lg is-invalid", placeholder='Postal/Zip Code') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.zip.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.zip(class="form-control form-control-lg", placeholder='Postal/Zip Code') }}
+                {% endif %}
             </div>
         </fieldset>
+
         <div class="form-group">
-            {{ form.submit(class="btn btn-primary w-100 mt-3") }}    
+            {{ form.submit(class="btn btn-primary w-100 mt-3") }}
         </div>
+
     </form>
+</div>
 {% endblock content %}

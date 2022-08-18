@@ -11,7 +11,8 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
-# login_manager.login_view = 'login'
-# login_manager.login_message_category = 'info'
+login_manager.login_view = 'login'
+login_manager.login_message = "You must be logged in."
+login_manager.login_message_category = 'info'
 
 from . import routes, models
