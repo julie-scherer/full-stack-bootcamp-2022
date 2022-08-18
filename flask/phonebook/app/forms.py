@@ -1,8 +1,35 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import InputRequired, Length, Email, Regexp
+from wtforms import StringField, SubmitField, PasswordField, BooleanField
+from wtforms.validators import InputRequired, Length, Email, Regexp, EqualTo, ValidationError
+from app.models import User
 
-class AddressBook(FlaskForm):
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username',validators=[InputRequired(),Length(min=2,max=20)])
+    email = StringField('Email Address',validators=[InputRequired(),Email()])
+    password = PasswordField('Password',validators=[InputRequired(),Length(min=6,max=25)])
+    confirm_password = PasswordField('Confirm Password',validators=[InputRequired(),EqualTo(password)])
+    submit = SubmitField('Submit')
+
+    # wtforms allows you to create a custom validator by creating a function inside this form https://wtforms.readthedocs.io/en/2.3.x/validators/
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user != None:
+            raise ValidationError("That username is taken. Please choose a different one.")
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user != None:
+            raise ValidationError("Email already exists. Please enter a different one or login.")
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired()])
+    password = PasswordField('Password', validators=[InputRequired()])
+    remember = BooleanField('Remember Me') 
+    submit = SubmitField()
+
+
+class AddressForm(FlaskForm):
     firstname = StringField('First Name',validators=[InputRequired(),Length(min=2,max=20)])
     lastname = StringField('Last Name',validators=[InputRequired(),Length(min=2,max=25)])
     phone = StringField('Phone Number',validators=[InputRequired(),Length(min=10,max=14),Regexp('\(?\d{3}\)? ?\d{3}\-?\d{4}')])
@@ -12,5 +39,4 @@ class AddressBook(FlaskForm):
     city = StringField('City',validators=[InputRequired()])
     state = StringField('State',validators=[InputRequired(),Length(2)])
     zip = StringField('Zip Code',validators=[InputRequired(),Length(min=5,max=10)])
-    
     submit = SubmitField('Submit')

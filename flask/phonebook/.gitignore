@@ -1,6 +1,5 @@
 venv
 run.py
 __pycache__
-exercise_instructions.txt
 migrations
 migrations-terminal.txt
