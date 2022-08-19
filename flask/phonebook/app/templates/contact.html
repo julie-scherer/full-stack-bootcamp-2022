@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <h2 class="text-center">{{ address.firstname }} {{ address.lastname }}</h4>
+    <h6 class="text-center"> {{ address.date_created.strftime('%A, %B %d, %Y') }}</h6>
+    <p class="text-center">{{ address.street1 }} {{ address.street2 }} <br>
+                            {{ address.city }} {{ address.state }} <br>
+                            {{ address.zip }}</p>
+
+    {% if address.user == current_user %}
+        <div class="d-flex">
+            <a href="{{ url_for('edit_contact', address_id=address.id) }}" class="btn btn-success w-50">Edit Contact</a>
+
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger w-50" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Delete Contact
+            </button>
+        </div>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete {{ address.firstname }} {{ address.lastname }}? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="{{ url_for('delete_contact', address_id=address.id) }}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock content %}

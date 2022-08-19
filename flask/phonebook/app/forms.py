@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, SelectField
 from wtforms.validators import InputRequired, Length, Email, Regexp, EqualTo, ValidationError
 from app.models import User
 
@@ -29,7 +29,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me') 
     submit = SubmitField()
 
-
+from app.static.states import States
 class AddressForm(FlaskForm):
     firstname = StringField('First Name',validators=[InputRequired(),Length(min=2,max=20)])
     lastname = StringField('Last Name',validators=[InputRequired(),Length(min=2,max=25)])
@@ -37,6 +37,10 @@ class AddressForm(FlaskForm):
     street1 = StringField('Street Line 1',validators=[InputRequired()])
     street2 = StringField('Street Line 2')
     city = StringField('City',validators=[InputRequired()])
-    state = StringField('State',validators=[InputRequired(),Length(2)])
+    state = SelectField('State',validators=[InputRequired()],choices=States.state_list)
     zip = StringField('Zip Code',validators=[InputRequired(),Length(min=5,max=10)])
     submit = SubmitField('Submit')
+
+    # def validate_state(self, state):
+    #     if state.data == 'Choose...':
+    #         raise ValidationError("Please enter the state.")

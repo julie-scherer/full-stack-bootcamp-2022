@@ -1,0 +1,61 @@
+class States:
+    
+    state_dict = {
+            'Alaska':'AK',
+            'Alabama':'AL',
+            'Arkansas':'AR',
+            'Arizona':'AZ',
+            'California':'CA',
+            'Colorado':'CO',
+            'Connecticut':'CT',
+            'District of Columbia':'DC',
+            'Delaware':'DE',
+            'Florida':'FL',
+            'Georgia':'GA',
+            'Hawaii':'HI',
+            'Iowa':'IA',
+            'Idaho':'ID',
+            'Illinois':'IL',
+            'Indiana':'IN',
+            'Kansas':'KS',
+            'Kentucky':'KY',
+            'Louisiana':'LA',
+            'Massachusetts':'MA',
+            'Maryland':'MD',
+            'Maine':'ME',
+            'Michigan':'MI',
+            'Minnesota':'MN',
+            'Missouri':'MO',
+            'Mississippi':'MS',
+            'Montana':'MT',
+            'North Carolina':'NC',
+            'North Dakota':'ND',
+            'Nebraska':'NE',
+            'New Hampshire':'NH',
+            'New Jersey':'NJ',
+            'New Mexico':'NM',
+            'Nevada':'NV',
+            'New York':'NY',
+            'Ohio':'OH',
+            'Oklahoma':'OK',
+            'Oregon':'OR',
+            'Pennsylvania':'PA',
+            'Rhode Island':'RI',
+            'South Carolina':'SC',
+            'South Dakota':'SD',
+            'Tennessee':'TN',
+            'Texas':'TX',
+            'Utah':'UT',
+            'Virginia':'VA',
+            'Vermont':'VT',
+            'Washington':'WA',
+            'Wisconsin':'WI',
+            'West Virginia':'WV',
+            'Wyoming':'WY'
+            }
+    
+    state_list = ['Alaska', 'Alabama', 'Arkansas', 'Arizona', 'California', 'Colorado', 'Connecticut', 'District of Columbia', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Iowa', 'Idaho', 'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Louisiana', 'Massachusetts', 'Maryland', 'Maine', 'Michigan', 'Minnesota', 'Missouri', 'Mississippi', 'Montana', 'North Carolina', 'North Dakota', 'Nebraska', 'New Hampshire', 'New Jersey', 'New Mexico', 'Nevada', 'New York', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Virginia', 'Vermont', 'Washington', 'Wisconsin', 'West Virginia', 'Wyoming']
+
+    state_choices = [('Alaska','AK'),('Alabama','AL'),('Arkansas','AR'),('Arizona','AZ'),('California','CA'),('Colorado','CO'),('Connecticut','CT'),('District of Columbia','DC'),('Delaware','DE'),('Florida','FL'),('Georgia','GA'),('Hawaii','HI'),('Iowa','IA'),('Idaho','ID'),('Illinois','IL'),('Indiana','IN'),('Kansas','KS'),('Kentucky','KY'),('Louisiana','LA'),('Massachusetts','MA'),('Maryland','MD'),('Maine','ME'),('Michigan','MI'),('Minnesota','MN'),('Missouri','MO'),('Mississippi','MS'),('Montana','MT'),('North Carolina','NC'),('North Dakota','ND'),('Nebraska','NE'),('New Hampshire','NH'),('New Jersey','NJ'),('New Mexico','NM'),('Nevada','NV'),('New York','NY'),('Ohio','OH'),('Oklahoma','OK'),('Oregon','OR'),('Pennsylvania','PA'),('Rhode Island','RI'),('South Carolina','SC'),('South Dakota','SD'),('Tennessee','TN'),('Texas','TX'),('Utah','UT'),('Virginia','VA'),('Vermont','VT'),('Washington','WA'),('Wisconsin','WI'),('West Virginia','WV'),('Wyoming','WY')]
+
+    

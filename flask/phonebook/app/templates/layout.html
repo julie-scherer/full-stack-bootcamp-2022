@@ -27,7 +27,7 @@
                 <div class="navbar-nav">
                     <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                     {% if current_user.is_authenticated %}
-                        <a class="nav-link " href="{{ url_for('address') }}">Add Address</a>
+                        <a class="nav-link " href="{{ url_for('phonebook') }}">Phonebook</a>
                         <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
                     {% else %}
                         <a class="nav-link" href="{{ url_for('register') }}">Register</a>

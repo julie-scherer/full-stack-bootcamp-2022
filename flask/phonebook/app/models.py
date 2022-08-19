@@ -38,6 +38,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}')"
 
+
 class Address(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(20),nullable=False)
@@ -46,7 +47,8 @@ class Address(db.Model):
     street1 = db.Column(db.String(100),nullable=False)
     street2 = db.Column(db.String(20),nullable=False)
     city = db.Column(db.String(20),nullable=False)
-    state = db.Column(db.String(2),nullable=False)
+    state = db.Column(db.String(20),nullable=False)
+    state_abbrv = db.Column(db.String(2),nullable=False)
     zip = db.Column(db.String(10),nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -58,4 +60,17 @@ class Address(db.Model):
         db.session.commit()
     
     def __repr__(self):
-        return f"User('{self.firstname}', '{self.lastname}', '{self.date_created}')"
+        return f"Address({self.firstname}, {self.lastname}, {self.date_created})"
+    
+    def __str__(self):
+        return f"Address for {self.firstname} {self.lastname} created {self.date_created}"
+
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            if key in {'firstname', 'lastname', 'phone', 'street1', 'street2', 'city', 'state', 'zip'}:
+                setattr(self, key, value)
+        db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()

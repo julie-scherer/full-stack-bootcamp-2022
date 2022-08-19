@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2 class="text-center">Edit {{ address.firstname }} {{ address.lastname }}</h4>
+    <h6 class="text-center"> {{ address.date_created.strftime('%A, %B %d, %Y') }}</h6>
+    <p class="text-center">{{ address.street1 }} {{ address.street2 }} <br>
+                            {{ address.city }} {{ address.state }} <br>
+                            {{ address.zip }}</p>
+
+<form method="post">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.firstname.label }}
+        {{ form.firstname(class='form-control', value=address.firstname) }}
+        
+        {{ form.lastname.label }}
+        {{ form.lastname(class='form-control', value=address.lastname) }}
+        
+        {{ form.phone.label }}
+        {{ form.phone(class='form-control', value=address.phone) }}
+        
+        {{ form.street1.label }}
+        {{ form.street1(class='form-control', value=address.street1) }}
+
+        {{ form.street2.label }}
+        {{ form.street2(class='form-control', value=address.street2) }}
+
+        {{ form.city.label }}
+        {{ form.city(class='form-control', value=address.city) }}
+
+        {{ form.state.label }}
+        {{ form.state(class='form-control', value=address.state) }}
+
+        {{ form.zip.label }}
+        {{ form.zip(class='form-control', value=address.zip) }}
+
+        {{ form.submit(class='btn btn-secondary w-100 mt-3') }}
+    </div>
+</form>
+
+{% endblock content %}
