@@ -3,3 +3,4 @@ run.py
 __pycache__
 migrations
 migrations-terminal.txt
+.DS_Store
