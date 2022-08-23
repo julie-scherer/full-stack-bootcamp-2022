@@ -46,7 +46,7 @@ function SumPosNums1 (numbers) {
         }
         i++;
     };
-    return console.log(sum);
+    return sum;
 }
 
 let numbers1 = [10, 12, -9, 3, -1, 0, 15];
@@ -66,7 +66,7 @@ function SumPosNums2 (numbers) {
             sum += num;
         };
     };
-    return console.log(sum);
+    return sum;
 }
 
 let numbers2 = [3, 5, 7, 9, -10, 2, -22, -1]; 
