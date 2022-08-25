@@ -1,0 +1,19 @@
+.*
+*.pdf
+*.docx
+
+*/[mod-]/ 	# hide any nested directories starting 'mod-'
+00*		# hide any directories starting with '00'
+*codewars/ 	
+*github/
+*cmdline/
+
+white-boards.ipynb
+
+prework/html css/
+
+html-css/coding_temple-gitcollab-07112022/
+
+flask/flask_blog_tutorial/
+flask/kekambas-intro_to_flask/
+flask/heroku-setup/
