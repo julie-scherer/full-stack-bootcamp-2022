@@ -52,14 +52,27 @@ function getMovieInfo(movieName){
 // Example 1
 // printMovieInfo('Indiana Jones and the Dark Knight')
 // Output: Indiana Jones and the Dark Knight directed by Christopher Spielberg. A story of Good vs Evil that runs for 157 minutes.
-console.log("Start example 1...");
-const printMovieInfo1 = getMovieInfo('Indiana Jones and the Dark Knight');
-printMovieInfo1.then(m => console.log(`${m.title} directed by ${m.director}. A story of ${m.description} that runs for ${m.runtime} minutes.`)).catch(e => console.warn(e));
+
+// console.log("Start example 1...");
+// const printMovieInfo1 = getMovieInfo('Indiana Jones and the Dark Knight');
+// printMovieInfo1.then(m => console.log(`${m.title} directed by ${m.director}. A story of ${m.description} that runs for ${m.runtime} minutes.`)).catch(e => console.warn(e));
 
 
 // Example 2
 // printMovieInfo('ET')
 // Output: *Warning* ET cannot be accessed because it it too short
-console.log("Start example 2...");
-const printMovieInfo2 = getMovieInfo('ET');
-printMovieInfo2.then(m => console.log(m)).catch(e => console.warn(e));
+
+// console.log("Start example 2...");
+// const printMovieInfo2 = getMovieInfo('ET');
+// printMovieInfo2.then(m => console.log(m)).catch(e => console.warn(e));
+
+
+// Convert printMovieInfo to a Function
+console.log("printMovieInfo()...");
+function printMovieInfo3(movieName) {
+    getMovieInfo(movieName)
+        .then(m => console.log(`${m.title} directed by ${m.director}. A story of ${m.description} that runs for ${m.runtime} minutes.`))
+        .catch(e => console.warn(e));
+};
+printMovieInfo3('Indiana Jones and the Dark Knight');
+printMovieInfo3('ET');
