@@ -3,7 +3,7 @@
 *.docx
 
 **/[mod]-/ 	# hide any nested directories starting 'mod-'
-**/00/		# hide any directories starting with '00'
+00/		# hide any directories starting with '00'
 codewars/ 	
 github/
 cmdline/
