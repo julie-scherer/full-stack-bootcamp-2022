@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="Description" content="Enter your description here"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <script src="./js/f1.js"></script>
+        <title>Title</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">F1 Racer Standings</span>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h1 class="text-center" id="top-header">F1 Standings</h1>
+
+            <div class="row">
+                <form action="" id="standingsForm">
+                    <div class="row form-control">
+                        <div class="col-5">
+                            <input class="form-control" name="season" type="text" placeholder="Season">
+                        </div>
+                        <div class="col-5">
+                            <input class="form-control" name="round" type="text" placeholder="Round">
+                        </div>
+                        <div class="col-2">
+                            <input type="submit" class="btn btn-primary d-block w-100">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row" id="standingTable">
+                <!-- Create table and display standings here via JavaScript -->
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    </body>
+</html>
