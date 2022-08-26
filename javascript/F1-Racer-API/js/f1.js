@@ -8,104 +8,131 @@ The table should display at least position, points, driver name, driver national
 The table should dynamically populate the data when a "season" and "round" are specified within your form.
 */
 
+
+    let form = document.getElementById('standingsForm');
+    // console.log(form);
 {
-  let form = document.getElementById('standingsForm');
-  console.log(form);
-
-  // create a function to handle submit event
-  async function handleSubmit(e){
-      e.preventDefault(); // Prevent the event from refreshing the page
-      let inputSeason = e.target.season.value;
-      let inputRound = e.target.round.value;
-      let race = getRaceInfo(inputSeason,inputRound);
-      buildstandingTable(race);
-      console.log("raceJSON : ", raceJSON);
-  }
-
-  async function getRaceInfo(season, round) {
-      const re = await fetch(
-          `https://ergast.com/api/f1/${season}/${round}/driverStandings.json`
-      );
-      const data = await re.json(); // Extracting data as a JSON Object from the response
-      console.log("data : ", data);
-      return data;
-  }
-
-  function buildstandingTable(raceJSON){
-      // let table = document.createElement('div');
-      // table.className = 'table';
-      // console.log("table created")
-
-      // create thead
-      // position, points, driver name, driver nationality, and constructor name
-      let tableHead = document.createElement('thead');
-      tableHead.className = 'thead';
-      console.log("tableHead created");
-
-      let tableRowHead = document.createElement('tr');
-      console.log("table row created");
-
-      console.log("Start creating th fields...");
-      let positionHead = document.createElement('th');
-      positionHead.scope = "col";
-      positionHead.innerHTML = "Position";
-      tableRowHead.append(positionHead);
-
-      let pointsHead = document.createElement('th');
-      pointsHead.scope = "col";
-      pointsHead.innerHTML = "Points";
-      tableRowHead.append(pointsHead);
-
-      let driverNameHead = document.createElement('th');
-      driverNameHead.scope = "col";
-      driverNameHead.innerHTML = "Driver";
-      tableRowHead.append(driverNameHead);
-
-      let driverNationalityHead = document.createElement('th');
-      driverNationalityHead.scope = "col";
-      driverNationalityHead.innerHTML = "Nationality";
-      tableRowHead.append(driverNationalityHead);
-
-      let constructorHead = document.createElement('th');
-      constructorHead.scope = "col";
-      constructorHead.innerHTML = "Constructor";
-      tableRowHead.append(constructorHead);
-      
-      console.log("Stop creating th fields...");
-      tableHead.append(tableHeadRow);
-      table.append(tableHead);
-      console.log("tableHead appended to table");
-
-      // create tbody
-      let tableBody = document.createElement('tbody');
-      tableBody.className = 'tbody';
-
-      let tableRow = document.createElement('tr');
-      let racerData = raceJSON.MRData.StandingsTable.StandingsLists[0].DriverStandings;   // python: driver_json.get("MRData").get("StandingsTable").get("StandingsLists")[0].get("DriverStandings")
-      console.log(racerData)
-      for (r = 0; r < racerData.length; r++) {
-          let tableData = document.createElement('td');
-          tableData.scope = "col";
-          tableData.innerHTML = racerData[r].position;
-          tableRow.append(tableData);
-          tableBody.append(tableRow);
-      }
-      
-
-      table.append(tableHead);
-      table.append(tableBody);
-
-      // Create a column for the row
-      let col = document.createElement('div');
-      col.className = 'col-12 col-md-6 col-lg-3';
-
-      // Add the card as a child to the column
-      col.append(table);
-
-      document.getElementById('standingTable').append(col);
-      
+    // Get racer data from API
+    async function getRacerInfo(raceSeason, raceRound) {
+        const re = await fetch(
+            `https://ergast.com/api/f1/${raceSeason}/${raceRound}/driverStandings.json`
+        );
+        const data = await re.json(); // Extracting data as a JSON Object from the response
+        console.log("data : ", data);
+        return data;
     }
 
-  form.addEventListener('submit', handleSubmit);
-  
-}
+    // create a function to handle submit event
+    async function handleSubmit(e){
+        e.preventDefault(); // Prevent the event from refreshing the page
+        let inputSeason = e.target.raceSeason.value;
+        let inputRound = e.target.raceRound.value;
+        let race = await getRacerInfo(inputSeason,inputRound);
+        buildstandingsTable(race);
+        console.log("raceJSON : ", raceJSON);
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    function buildstandingsTable(raceJSON){
+        let table = document.createElement('div')
+        table.className = 'table';
+        
+        console.log("Creating table head fields...");
+        // position, points, driver name, driver nationality, and constructor name
+
+        let positionHead = document.createElement('th');
+        positionHead.scope = "col";
+        positionHead.innerHTML = "Position";
+        
+        let pointsHead = document.createElement('th');
+        pointsHead.scope = "col";
+        pointsHead.innerHTML = "Points";
+        
+        let driverNameHead = document.createElement('th');
+        driverNameHead.scope = "col";
+        driverNameHead.innerHTML = "Driver";
+        
+        let driverNationalityHead = document.createElement('th');
+        driverNationalityHead.scope = "col";
+        driverNationalityHead.innerHTML = "Nationality";
+        
+        let constructorHead = document.createElement('th');
+        constructorHead.scope = "col";
+        constructorHead.innerHTML = "Constructor";
+        
+        console.log("Append table head fields to table row...");
+        let tableRowHead = document.createElement('tr');
+        tableRowHead.append(positionHead);
+        tableRowHead.append(pointsHead);
+        tableRowHead.append(driverNameHead);
+        tableRowHead.append(driverNationalityHead);
+        tableRowHead.append(constructorHead);
+
+        console.log("Append table row to table head...");
+        let tableHead = document.createElement('thead');
+        tableHead.className = 'thead';
+        tableHead.append(tableHeadRow);
+
+        console.log("Append table head to table...");
+        table.append(tableHead);
+        
+        // - - - - - - - - - - - - - - - - - - - - - - - - - 
+        // Create table body
+
+        let tableRow = document.createElement('tr');
+        console.log(racerData)
+        
+        console.log("Creating table body fields...");
+        // position, points, driver name, driver nationality, and constructor name
+
+        let racerData = raceJSON.MRData.StandingsTable.StandingsLists[0].DriverStandings;   // in python: driver_json.get("MRData").get("StandingsTable").get("StandingsLists")[0].get("DriverStandings")
+        // for (r = 0; r < racerData.length; r++) {
+        for (r in racerData) {
+            let position = document.createElement('td');
+            position.scope = "col";
+            position.innerHTML = racerData[r].position;
+
+            let points = document.createElement('td');
+            points.scope = "col";
+            points.innerHTML = racerData[r].points;
+
+            let name = document.createElement('td');
+            name.scope = "col";
+            name.innerHTML = racerData[r].Constructors.name;
+            
+            let nationality = document.createElement('td');
+            nationality.scope = "col";
+            nationality.innerHTML = racerData[r].Constructors.nationality;
+
+            let constructorId = document.createElement('td');
+            constructorId.scope = "col";
+            constructorId.innerHTML = racerData[r].Constructors.constructorId;
+
+            // Append table data to table row
+            rowData = [position,points,name,nationality,constructorId];
+            tableRow.append(rowData);
+            
+        }
+        
+        // Append table rows to table body
+        let tableBody = document.createElement('tbody');
+        tableBody.className = 'tbody';
+        tableBody.append(tableRow);
+
+        // Append table body to table
+        table.append(tableBody);
+
+        // Create a column for the table
+        let col = document.createElement('div');
+        col.className = 'col';
+
+        // Add the table to the column
+        col.append(table);
+
+        document.getElementById('standingsTable').append(col);
+        
+        }
+
+    form.addEventListener('submit', handleSubmit);
+    
+    }
