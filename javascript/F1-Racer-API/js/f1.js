@@ -9,37 +9,41 @@ The table should dynamically populate the data when a "season" and "round" are s
 */
 
 
-    let form = document.getElementById('standingsForm');
-    // console.log(form);
 {
-    // Get racer data from API
-    async function getRacerInfo(raceSeason, raceRound) {
-        const re = await fetch(
-            `https://ergast.com/api/f1/${raceSeason}/${raceRound}/driverStandings.json`
-        );
-        const data = await re.json(); // Extracting data as a JSON Object from the response
-        console.log("data : ", data);
-        return data;
-    }
-
-    // create a function to handle submit event
+    let form = document.getElementById('standingsForm');
+    console.log(form);
+    
     async function handleSubmit(e){
         e.preventDefault(); // Prevent the event from refreshing the page
-        let inputSeason = e.target.raceSeason.value;
-        let inputRound = e.target.raceRound.value;
+        let inputSeason = e.target.season.value;
+        let inputRound = e.target.round.value;
         let race = await getRacerInfo(inputSeason,inputRound);
         buildstandingsTable(race);
-        console.log("raceJSON : ", raceJSON);
+        inputSeason.value = '';
+        inputRound.value = '';
+    }
+    
+    // Get racer data from API
+    async function getRacerInfo(season, round) {
+        const re = await fetch(
+            `https://ergast.com/api/f1/${season}/${round}/driverStandings.json`
+        );
+        const data = await re.json();
+        console.log("data : ", data);
+        // return data;
+        return data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    function buildstandingsTable(raceJSON){
-        let table = document.createElement('div')
+    function buildstandingsTable(raceObj){
+        let table = document.createElement('div');
         table.className = 'table';
         
         console.log("Creating table head fields...");
+        
+        // TABLE HEADER
+        // - - - - - - - - - - - - - - - - - - - - - - - - - 
         // position, points, driver name, driver nationality, and constructor name
-
         let positionHead = document.createElement('th');
         positionHead.scope = "col";
         positionHead.innerHTML = "Position";
@@ -60,67 +64,62 @@ The table should dynamically populate the data when a "season" and "round" are s
         constructorHead.scope = "col";
         constructorHead.innerHTML = "Constructor";
         
-        console.log("Append table head fields to table row...");
-        let tableRowHead = document.createElement('tr');
-        tableRowHead.append(positionHead);
-        tableRowHead.append(pointsHead);
-        tableRowHead.append(driverNameHead);
-        tableRowHead.append(driverNationalityHead);
-        tableRowHead.append(constructorHead);
+        let rowHead = document.createElement('tr');
+        rowHead.append(positionHead);
+        rowHead.append(pointsHead);
+        rowHead.append(driverNameHead);
+        rowHead.append(driverNationalityHead);
+        rowHead.append(constructorHead);
 
-        console.log("Append table row to table head...");
         let tableHead = document.createElement('thead');
         tableHead.className = 'thead';
-        tableHead.append(tableHeadRow);
+        tableHead.append(rowHead);
 
-        console.log("Append table head to table...");
         table.append(tableHead);
         
+        // TABLE BODY
         // - - - - - - - - - - - - - - - - - - - - - - - - - 
-        // Create table body
-
-        let tableRow = document.createElement('tr');
-        console.log(racerData)
-        
-        console.log("Creating table body fields...");
         // position, points, driver name, driver nationality, and constructor name
+        let body = document.createElement('tbody');
+        body.className = 'tbody';
+        
+        for (i in raceObj) {
+            let row = document.createElement('tr');
+            row.class = "row";
 
-        let racerData = raceJSON.MRData.StandingsTable.StandingsLists[0].DriverStandings;   // in python: driver_json.get("MRData").get("StandingsTable").get("StandingsLists")[0].get("DriverStandings")
-        // for (r = 0; r < racerData.length; r++) {
-        for (r in racerData) {
-            let position = document.createElement('td');
-            position.scope = "col";
-            position.innerHTML = racerData[r].position;
+            let j = 0;
+            while (j <= 5) {
+                let positionCol = document.createElement('th');
+                positionCol.scope = "col";
+                positionCol.innerHTML = raceObj[i].position;
+    
+                let pointsCol = document.createElement('td');
+                pointsCol.scope = "col";
+                pointsCol.innerHTML = raceObj[i].points;
+    
+                let nameCol = document.createElement('td');
+                nameCol.scope = "col";
+                nameCol.innerHTML = raceObj[i].Driver.givenName + ' ' + raceObj[i].Driver.familyName;
+                
+                let nationalityCol = document.createElement('td');
+                nationalityCol.scope = "col";
+                nationalityCol.innerHTML = raceObj[i].Constructors[0].nationality;
+    
+                let constructorIdCol = document.createElement('td');
+                constructorIdCol.scope = "col";
+                constructorIdCol.innerHTML = raceObj[i].Constructors[0].constructorId;
 
-            let points = document.createElement('td');
-            points.scope = "col";
-            points.innerHTML = racerData[r].points;
-
-            let name = document.createElement('td');
-            name.scope = "col";
-            name.innerHTML = racerData[r].Constructors.name;
-            
-            let nationality = document.createElement('td');
-            nationality.scope = "col";
-            nationality.innerHTML = racerData[r].Constructors.nationality;
-
-            let constructorId = document.createElement('td');
-            constructorId.scope = "col";
-            constructorId.innerHTML = racerData[r].Constructors.constructorId;
-
-            // Append table data to table row
-            rowData = [position,points,name,nationality,constructorId];
-            tableRow.append(rowData);
-            
+                columns = [positionCol, pointsCol, nameCol, nationalityCol, constructorIdCol];
+                
+                j++;
+            }
+            row.append(...columns);            
+            table.append(row);
+            body.append(row);
         }
         
-        // Append table rows to table body
-        let tableBody = document.createElement('tbody');
-        tableBody.className = 'tbody';
-        tableBody.append(tableRow);
-
         // Append table body to table
-        table.append(tableBody);
+        table.append(body);
 
         // Create a column for the table
         let col = document.createElement('div');
@@ -135,4 +134,4 @@ The table should dynamically populate the data when a "season" and "round" are s
 
     form.addEventListener('submit', handleSubmit);
     
-    }
+}
