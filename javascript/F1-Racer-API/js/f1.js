@@ -86,33 +86,29 @@ The table should dynamically populate the data when a "season" and "round" are s
         for (i in raceObj) {
             let row = document.createElement('tr');
             row.class = "row";
+            
+            let positionCol = document.createElement('th');
+            positionCol.scope = "col";
+            positionCol.innerHTML = raceObj[i].position;
 
-            let j = 0;
-            while (j <= 5) {
-                let positionCol = document.createElement('th');
-                positionCol.scope = "col";
-                positionCol.innerHTML = raceObj[i].position;
-    
-                let pointsCol = document.createElement('td');
-                pointsCol.scope = "col";
-                pointsCol.innerHTML = raceObj[i].points;
-    
-                let nameCol = document.createElement('td');
-                nameCol.scope = "col";
-                nameCol.innerHTML = raceObj[i].Driver.givenName + ' ' + raceObj[i].Driver.familyName;
-                
-                let nationalityCol = document.createElement('td');
-                nationalityCol.scope = "col";
-                nationalityCol.innerHTML = raceObj[i].Constructors[0].nationality;
-    
-                let constructorIdCol = document.createElement('td');
-                constructorIdCol.scope = "col";
-                constructorIdCol.innerHTML = raceObj[i].Constructors[0].constructorId;
+            let pointsCol = document.createElement('td');
+            pointsCol.scope = "col";
+            pointsCol.innerHTML = raceObj[i].points;
 
-                columns = [positionCol, pointsCol, nameCol, nationalityCol, constructorIdCol];
-                
-                j++;
-            }
+            let nameCol = document.createElement('td');
+            nameCol.scope = "col";
+            nameCol.innerHTML = raceObj[i].Driver.givenName + ' ' + raceObj[i].Driver.familyName;
+            
+            let nationalityCol = document.createElement('td');
+            nationalityCol.scope = "col";
+            nationalityCol.innerHTML = raceObj[i].Constructors[0].nationality;
+
+            let constructorIdCol = document.createElement('td');
+            constructorIdCol.scope = "col";
+            constructorIdCol.innerHTML = raceObj[i].Constructors[0].constructorId;
+
+            columns = [positionCol, pointsCol, nameCol, nationalityCol, constructorIdCol];
+
             row.append(...columns);            
             table.append(row);
             body.append(row);
