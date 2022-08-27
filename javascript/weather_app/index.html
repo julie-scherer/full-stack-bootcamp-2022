@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>My Weather API</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="css/style.css"> -->
+        
+        <script defer src="js/index.js"></script>
+        <script defer src="js/key.js"></script>
+    </head>
+    <body>
+
+        <div class="container">
+
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-light bg-primary rounded-3 mb-3">
+                <div class="container-fluid">
+                  <a class="navbar-brand w-25 text-light">Weather App</a>
+                  
+                  <form class="d-flex w-50" action="" id="searchForm">
+                    <input class="form-control me-2;" type="search" placeholder="City" aria-label="Search" name="cityLookup">
+                    <button class="btn btn-outline-light btn-sm mx-2" type="submit">Search</button>
+                  </form>
+
+                </div>
+            </nav>
+
+            <!-- MAIN CONTENT -->
+            <div class="d-flex flex-column align-content-center w-75 m-auto">
+                <h1 class="text-center border-bottom border-5">What's The Weather?</h1>
+                <p class="text-center mx-5">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda asperiores ex perspiciatis cum dicta deserunt, ipsa id architecto? Voluptate nam fugiat commodi nisi amet cumque ab, et provident repellat numquam?
+                </p>
+                <div class="row d-flex justify-content-center my-3">
+                    <img src="images/sunny.webp" alt="Sunny" style="max-height: 100px; width: auto;">
+                    <img src="images/cloudy.png" alt="Cloudy" style="max-height: 120px; width: auto;">
+                    <img src="images/rain.png" alt=" Raining" style="max-height: 100px; width: auto;">
+                    <img src="images/thunderstorms.png" alt="thunderstorms" style="max-height: 100px; width: auto;">
+                </div>
+            </div>
+
+            <div class="weatherDisplay">
+
+            </div>
+            
+        </div>
+        
+        <!-- Bootstrap JavaScript Libraries -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
+    </body>
+</html>
