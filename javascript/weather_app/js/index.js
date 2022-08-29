@@ -1,19 +1,6 @@
 console.log('Hello checking that we are connected!');
 // console.dir(document);
 
-/*
-let loctionHead = document.querySelector('#location');
-console.log(loctionHead);
-let currentTemp = document.querySelector('#current');
-console.log(currentTemp);
-let highAndlow = document.querySelector('#high_and_low');
-console.log(highAndlow);
-let feelsLike = document.querySelector('#feels_like');
-console.log(feelsLike);
-let sunriseAndsunset = document.querySelector('#sunrise_sunset');
-console.log(sunriseAndsunset);
-*/
-
 
 // Get HTML Form
 let form = document.querySelector('#searchForm');
@@ -46,7 +33,7 @@ let container = document.querySelector('.container');
 // Get Weather Container
 let weatherContainer = document.querySelector('.weatherDisplay');   // let weatherContainer = document.createElement('div');
 weatherContainer.className = 'd-flex flex-column align-content-center w-75 m-auto mb-5';
-console.log(weatherContainer);
+// console.log(weatherContainer);
 
 function buildWeatherCards(cityWeatherObj) {
 
@@ -72,11 +59,17 @@ function buildWeatherCards(cityWeatherObj) {
     function convertTemp(K) {
         return `${(((Number(K)-273.15)*1.8)+32).toFixed(1)}°F`;
     }
+    
+    function convertTime(unixTimestamp) {
+        var date = new Date(unixTimestamp * 1000); // multiplied by 1000 so that the argument is in milliseconds
+        // console.log(date.toLocaleTimeString("en-US"));
+        return date.toLocaleTimeString("en-US");
+    }
 
-    fields = [`The current temperature is ${convertTemp(cityWeatherObj.main.temp)} with ${cityWeatherObj.weather[0].description}.`, 
+    fields = [`It is ${convertTemp(cityWeatherObj.main.temp)} with ${cityWeatherObj.weather[0].description}.`, 
                 `The high today is ${convertTemp(cityWeatherObj.main.temp_max)} and the low is ${convertTemp(cityWeatherObj.main.temp_min)}.`, 
-                `It feels like ${convertTemp(cityWeatherObj.main.feels_like)} outside.`,
-                `The sun rises at ${cityWeatherObj.sys.sunrise} and sets at ${cityWeatherObj.sys.sunset} today.`];
+                `It feels like ${convertTemp(cityWeatherObj.main.feels_like)}.`,
+                `The sunrise is at ${convertTime(cityWeatherObj.sys.sunrise)} and sunset is at ${convertTime(cityWeatherObj.sys.sunset)}.`];
            
     i = 0;
     while (i < 4) { 
