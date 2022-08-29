@@ -122,6 +122,7 @@ function buildWeatherCards(cityWeatherObj) {
     // Build out weather container
     // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
     // Add weather location header to weather container
+    weatherContainer.innerHTML = '';
     weatherContainer.append(weatherContainerHead);
     
     // Add the row of cards to the weather container
