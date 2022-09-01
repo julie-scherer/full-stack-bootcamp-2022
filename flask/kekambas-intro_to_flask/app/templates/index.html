@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+<h2 class="text-center">Welcome to the Kekambas Blog!</h2>
+{% if current_user.is_authenticated %}
+    <h6 class="text-center">Signed in as: {{ current_user.username }}</h6>
+    {% for post in posts %}
+        <div class="card">
+            <div class="card-body">
+                <a href="{{ url_for('view_post', post_id=post.id) }}">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                </a>
+                <h6 class="card-subtitle mb-2 text-muted">By: {{ post.author.username }}</h6>
+            </div>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <h4 class="text-center">Please Sign Up or Log In to view posts</h4>
+{% endif %}
+
+{% endblock content %}
