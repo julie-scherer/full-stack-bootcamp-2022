@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import SignInForm from '../components/authForms/SignInForm';
 
-export default function SignIn( props ) {
+export default function SignIn( { login, flashMessage } ) {
     let navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -22,13 +22,13 @@ export default function SignIn( props ) {
             let data = await response.json();
             localStorage.setItem('token', data.token);
             localStorage.setItem('expiration', data.token_expiration);
-            props.login();
+            login();
             console.log('logged in')
-            props.flashMessage('You have successfully logged in', 'success');
+            flashMessage('You have successfully logged in', 'success');
             navigate('/');
         } else {
             console.log('username or password incorrect');
-            props.flashMessage('Your username and/or password is incorrect', 'danger');
+            flashMessage('Your username and/or password is incorrect', 'danger');
         }
     }
 

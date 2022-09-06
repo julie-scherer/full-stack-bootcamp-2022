@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+// import Modal from './components/Modal';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import AlertMessage from './components/AlertMessage';
@@ -15,16 +16,32 @@ function App() {
     const [loggedIn, setLoggedIn] = useState((localStorage.getItem('token') && new Date(localStorage.getItem('expiration')) > now) ? true : false);
     const [message, setMessage] = useState(null);
     const [category, setCategory] = useState(null);
-    const [posts, setPosts] = useState([]);
-
-    useEffect(() => {
-        fetch("https://kekambas-blog.herokuapp.com/blog/posts")
-        .then(response => response.json())
-        .then(data => setPosts(data))
-        }, []);
+    const [user, setUser] = useState([]);
+    
+    const getUser = async () => {
+        const userToken = localStorage.getItem('token');
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json');
+        myHeaders.append('Authorization', `Bearer ${userToken}`)
+        const response = await fetch("https://kekambas-blog.herokuapp.com/auth/me", {
+            method: 'GET',
+            headers: myHeaders
+        })
+        if (response.ok) {
+            let data = await response.json();
+            if (data.error) {
+                console.log(data.error)
+            } else {
+                setUser(data);
+                console.log(user);
+            }
+            return user
+        }}
 
     const login = () => {
         setLoggedIn(true);
+        getUser();
+        console.log(user);
     }
 
     const logout = () => {
@@ -61,14 +78,9 @@ function App() {
                         element={ <Blog
                             loggedIn={ loggedIn }
                             flashMessage={ flashMessage }
-                            posts={ posts }
-                            onNewPost={ post => setPosts(currentPosts => [post, ...currentPosts]) } /> } >
-                        { posts.map((post) => 
-                        <Route
-                            key={ post.id }
-                            path={`post/${post.id}`}
-                            element={ <Post post={ post } key={ post.id } /> } /> 
-                        )}
+                            user={ loggedIn? user : null }
+                            /> } >
+                        <Route path={`post/:postid`} element={ <Post /> } /> 
                     </Route>
 
                     <Route
@@ -89,6 +101,8 @@ function App() {
             </div>
 
             <Footer />
+
+            {loggedIn ? console.log(user) : ''}
         </>
     );
 }

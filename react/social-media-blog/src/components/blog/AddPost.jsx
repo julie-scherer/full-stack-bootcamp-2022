@@ -1,16 +1,16 @@
-import React from 'react';
 
-export default function CreateBlogPost(props) {
-    let flashMessage = props.flashMessage;
+
+export default function CreateBlogPost({ flashMessage, addNewPost }) {
+    
+    const userToken = localStorage.getItem('token');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const title = e.target.title.value;
         const content = e.target.content.value;
-        
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');
-        myHeaders.append('Authorization', `Bearer ${localStorage.getItem('token')}`)
+        myHeaders.append('Authorization', `Bearer ${userToken}`)
         const response = await fetch('https://kekambas-blog.herokuapp.com/blog/posts', {
             method: 'POST',
             headers: myHeaders,
@@ -19,17 +19,17 @@ export default function CreateBlogPost(props) {
                 content: content 
             })
         })
-        
         if (response.ok) {
             let data = await response.json();
             if (data.error) {
                 console.error(data.error)
             } else {
-                props.onNewPost({ title: title, content: content  });
                 flashMessage('Your post has been created', 'success');
-                console.log('post created', { title: title, content: content });
+                console.log('post created', { data });
+                addNewPost(data);
             }
         }
+        e.target = '';
     }
         
     return (
