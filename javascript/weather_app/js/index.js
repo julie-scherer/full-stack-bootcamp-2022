@@ -1,134 +1,139 @@
 console.log('Hello checking that we are connected!');
-// console.dir(document);
 
+getCurrLocForecast();
 
-// Get HTML Form
-let form = document.querySelector('#searchForm');
+let searchForm = document.querySelector('#searchForm');
+searchForm.addEventListener('submit', getCityForecast); // Add handleSubmit function as listener to submit event on form
 
-async function handleSubmit(event){
-    event.preventDefault(); 
-    let inputCity = event.target.cityLookup.value;
-    let city = await getWeatherInfo(inputCity); // Call the get country info function with the data from the form
-    // console.log(city);
-    buildWeatherCards(city);
+let currLocBut = document.querySelector('#currLocBut');
+currLocBut.addEventListener('click', getCurrLocForecast);
+
+function getCurrLocForecast() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async position => {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            let weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+            let weatherData = await weatherRes.json();
+            let forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+            let forecastData = await forecastRes.json();
+            displayWeather(weatherData);
+            displayForecast(forecastData);
+        });
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
 }
 
-async function getWeatherInfo(city){
-    const apiKey = weather_api_key;
-    let res = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}`);
-    let data = await res.json()
+async function getCityForecast(event) {
+    event.preventDefault();
+    let city = event.target.cityLookup.value;
+    let weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
+    let weatherData = await weatherRes.json();
+    let forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`);
+    let forecastData = await forecastRes.json();
+    displayWeather(weatherData);
+    displayForecast(forecastData);
+}
+
+const formatTemp = (K) => `${(((Number(K)-273.15)*1.8)+32).toFixed(0)}°F`;
+
+const formatDate = (unixTimestamp) => {
+    let date = new Date(unixTimestamp * 1000); // multiplied by 1000 so that the argument is in milliseconds
+    let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",  "Friday", "Saturday"];
+    let weekday = weekdays[date.getDay()];
+    return weekday;
+}
+
+const formatTime = (unixTimestamp) => {
+    let date = new Date(unixTimestamp * 1000); // multiplied by 1000 so that the argument is in milliseconds
+    let time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return time;
+}
+
+function displayWeather(data) {
+    console.log(data);
+    let weatherDisplay = document.querySelector(".weatherDisplay");
+
+    let currCity = document.querySelector("#currCity");
+    currCity.innerHTML = data.name;
+    
+    let logoImg = document.querySelector("#logoImg");
+    let icon =  data.weather[0].icon;
+    logoImg.innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="" width="100px" />`;    
+    
+    let currDescript = document.querySelector("#currDescript");
+    let description = data.weather[0].description;
+    currDescript.innerHTML = description.toUpperCase();
+
+    let currTemp = document.querySelector("#currTemp");
+    let mainTemp = formatTemp(data.main.temp);
+    currTemp.innerHTML = mainTemp;
+
+    let currWind = document.querySelector("#currWind");
+    let windSpeed = '<img src="/images/wind.png" alt="" width="20px" /> ' + data.wind.speed + ' m.p.h.';
+    currWind.innerHTML = windSpeed;
+
+    let currHumid = document.querySelector("#currHumid");
+    let humidity = '<img src="/images/raindrop.png" alt="" width="15px" /> ' + data.main.humidity + '% humid';
+    currHumid.innerHTML = humidity;
+}
+
+function displayForecast(data) {
     // console.log(data);
-    return data;
+    // 5 day / 3 hour forecast data
+    // 24 hours/day / 3-hour windows = 8 timestamps/day for 5 days
+
+    let forecastDisplay = document.querySelector(".forecastDisplay");
+    forecastDisplay.innerHTML = '';
+
+    list = data.list;
+    list.forEach((listDay, idx) => {
+        if (idx == 0 | idx == 8 |  idx == 16 | idx == 24 | idx == 32) {
+            let forecastDay = document.createElement('div');
+            forecastDay.innerHTML = `<h1>${formatDate(listDay.dt)}</h1>`;
+            forecastDisplay.append(forecastDay);
+        }
+
+        let forecastDayCont = document.createElement('div');
+        forecastDayCont.className = 'col col-lg-1.5 col-md-2 col-sm-3 bg-opacity-50 bg-dark border border-light border-opacity-25 rounded-3 m-1';
+        
+        let forecastTime = document.createElement('h5');
+        forecastTime.innerHTML = formatTime(listDay.dt);
+        
+        let forecastImgElement = document.createElement('div');
+        let icon =  listDay.weather[0].icon;
+        forecastImgElement.innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="" width="75px" />`;
+        
+
+        let dayTempElement = document.createElement('div');
+        dayTempElement.className = 'row row-cols-lg-3 row-cols-md-1 d-flex justify-content-between align-items-center';
+        
+        let minTempElement = document.createElement('div');
+        minTempElement.className = 'col text-danger';
+        minTempElement.innerHTML = `<h6>${formatTemp(listDay.main.temp_min)}</h6>`;
+        
+        let currTempElement = document.createElement('div');
+        currTempElement.className = 'col';
+        currTempElement.innerHTML = `<h5>${formatTemp(listDay.main.temp)}</h5>`;
+        
+        let maxTempElement = document.createElement('div');
+        maxTempElement.className = 'col text-success';
+        maxTempElement.innerHTML = `<h6>${formatTemp(listDay.main.temp_max)}</h6>`;
+
+
+        dayTempElement.append(minTempElement);
+        dayTempElement.append(currTempElement);
+        dayTempElement.append(maxTempElement);
+        
+        forecastDayCont.append(forecastTime);
+        forecastDayCont.append(forecastImgElement);        
+        forecastDayCont.append(dayTempElement);
+        
+        forecastDisplay.append(forecastDayCont);
+
+        }
+    )
+        
+    
 }
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-// Build Weather Display Section
-
-// Get Bootstrap Container
-let container = document.querySelector('.container');
-
-// Get Weather Container
-let weatherContainer = document.querySelector('.weatherDisplay');   // let weatherContainer = document.createElement('div');
-weatherContainer.className = 'd-flex flex-column align-content-center w-75 m-auto mb-5';
-// console.log(weatherContainer);
-
-function buildWeatherCards(cityWeatherObj) {
-
-    // Create header to display city
-    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-    let weatherContainerHead = document.createElement('h3');
-    weatherContainerHead.className = 'text-center p-3';
-    weatherContainerHead.style = 'text-decoration: underline;';     // style="text-decoration: underline;"
-    weatherContainerHead.innerHTML = `${cityWeatherObj.name}`;
-
-    // Create row to store card columns
-    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-    let cardRow = document.createElement('div');
-    cardRow.className = 'row row-cols-1 row-cols-md-2 g-4';
-    
-
-    
-    // Create cards using Weather API data  
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-    titles = ["Current Temperature", "Today's High and Low", "What It Feels Like", "Sunrise and Sunset"];
-
-    function convertTemp(K) {
-        return `${(((Number(K)-273.15)*1.8)+32).toFixed(1)}°F`;
-    }
-    
-    function convertTime(unixTimestamp) {
-        var date = new Date(unixTimestamp * 1000); // multiplied by 1000 so that the argument is in milliseconds
-        // console.log(date.toLocaleTimeString("en-US"));
-        return date.toLocaleTimeString("en-US");
-    }
-
-    fields = [`It is ${convertTemp(cityWeatherObj.main.temp)} with ${cityWeatherObj.weather[0].description}.`, 
-                `The high today is ${convertTemp(cityWeatherObj.main.temp_max)} and the low is ${convertTemp(cityWeatherObj.main.temp_min)}.`, 
-                `It feels like ${convertTemp(cityWeatherObj.main.feels_like)}.`,
-                `The sunrise is at ${convertTime(cityWeatherObj.sys.sunrise)} and sunset is at ${convertTime(cityWeatherObj.sys.sunset)}.`];
-           
-    i = 0;
-    while (i < 4) { 
-
-        // Create column to store cards
-        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-        let cardCol = document.createElement('div');
-        cardCol.className = 'col';
-        
-        // Create card to store card content
-        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-        let card = document.createElement('div');
-        card.className = 'card';
-        
-        // Create card body (parent)
-        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-        let cardBody = document.createElement('div');
-        cardBody.className = 'card-body';
-                    
-        // Create card title & text (children)
-        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-        // card title
-        let cardTitle = document.createElement('h5');
-        cardTitle.className = 'card-title';
-        cardTitle.innerHTML = titles[i];
-        // card text
-        let cardText = document.createElement('p');
-        cardText.className = 'card-text';
-        cardText.innerHTML = fields[i];
-        // create array of siblings
-        card_content = [cardTitle, cardText];
-
-        // Build card elements
-        // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-        // Add card title and text (children) to card body (parent)
-        cardBody.append(...card_content);
-        
-        // Add card body (parent) to card (grandparent)
-        card.append(cardBody);
-        
-        // Add card (grandparent) to card col (great grandparent)
-        cardCol.append(card);
-        
-        // Add finished card column to the row of cards
-        cardRow.append(cardCol);
-        
-        i++;
-    }
-    
-    // Build out weather container
-    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-    // Add weather location header to weather container
-    weatherContainer.innerHTML = '';
-    weatherContainer.append(weatherContainerHead);
-    
-    // Add the row of cards to the weather container
-    weatherContainer.append(cardRow)
-}
-
-
-// Add handleSubmit function as listener to submit event on form
-form.addEventListener('submit', handleSubmit);
