@@ -1,0 +1,36 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1><%= quiz.title %></h1>
+                    <p class="mb-0"><%= quiz.description %></p>
+                </div>
+            </div>
+            <form action="/quiz/<%= quiz.slug %>" method="POST">
+                <input type="hidden" name="title" value="<%= quiz.title %>">
+                <input type="hidden" name="quizId" value="<%= quiz.id %>">
+                <% for (const question of quiz.questions) { %>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="<%= question.id %>">
+                                    <strong><%= question.title %></strong>
+                                </label>
+                                <input type="text" name="<%= question.id %>" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <button class="form-control btn btn-primary btn-block" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer.ejs') %>

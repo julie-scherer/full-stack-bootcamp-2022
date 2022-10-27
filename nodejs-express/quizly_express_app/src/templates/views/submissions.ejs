@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+    <h1 class="my-4">Quizly - Dashboard</h1>
+    <div class="d-flex justify-content-between align-items-center mt-5 mb-3">
+        <h2 class="my-2">Your Submissions</h2>
+        <a href="/quiz/create" class="btn btn-primary">Create Quiz +</a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Quiz</th>
+                <th scope="col">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for( let submission of user.submissions ) { %>
+                <tr>
+                    <td>
+                        <a href="/quiz/results/<%= submission.id %>"><strong><%= submission.quiz.title %></strong></a>
+                        <br>
+                        <small><%= submission.quiz.description %> </small>
+                    </td>
+                    <td>
+                        <%= submission.score %> 
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+
+<%- include('../partials/footer.ejs') %>

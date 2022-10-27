@@ -1,0 +1,19 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1>Thank you!</h1>
+                    <p><strong>You successfully submitted quiz: </strong><%= submission.quiz.title %> </p>
+                    <p><strong>You scored: </strong><%= submission.score %> </p>
+                    <a href="/" class="btn btn-primary">Go Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs') %>
