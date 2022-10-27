@@ -1,3 +1,8 @@
+.ipynb_checkpoints
+.vscode
+__pycache__
+.DS_Store
+_*
 .*
 *.pdf
 *.docx
@@ -5,12 +10,6 @@
 **/[mod-]*/
 'mod-'
 00/
-codewars/
-github/
-cmdline/
-
-white-boards.ipynb
-
+projects/
 prework/html css/
-
 html-css/coding_temple-gitcollab-07112022/
