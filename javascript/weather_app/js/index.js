@@ -1,56 +1,48 @@
 console.log('Hello checking that we are connected!');
 
-getCurrLocForecast();
+getCurrentLocation();
 
-let searchForm = document.querySelector('#searchForm');
-searchForm.addEventListener('submit', getCityForecast); // Add handleSubmit function as listener to submit event on form
-
-let currLocBut = document.querySelector('#currLocBut');
-currLocBut.addEventListener('click', getCurrLocForecast);
-
-function getCurrLocForecast() {
+// 
+function getCurrentLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async position => {
-            let lat = position.coords.latitude;
-            let lon = position.coords.longitude;
-            let weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
-            let weatherData = await weatherRes.json();
-            let forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`);
-            let forecastData = await forecastRes.json();
-            displayWeather(weatherData);
-            displayForecast(forecastData);
-        });
+        navigator.geolocation.getCurrentPosition(getPosition);
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
 }
-
-async function getCityForecast(event) {
-    event.preventDefault();
-    let city = event.target.cityLookup.value;
-    let weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
+async function getPosition(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`);
     let weatherData = await weatherRes.json();
-    let forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`);
-    let forecastData = await forecastRes.json();
     displayWeather(weatherData);
-    displayForecast(forecastData);
 }
 
-const formatTemp = (K) => `${(((Number(K)-273.15)*1.8)+32).toFixed(0)}°F`;
 
+
+const formatTemp = (K) => `${(((Number(K)-273.15)*1.8)+32).toFixed(0)}°F`;
 const formatDate = (unixTimestamp) => {
     let date = new Date(unixTimestamp * 1000); // multiplied by 1000 so that the argument is in milliseconds
     let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",  "Friday", "Saturday"];
     let weekday = weekdays[date.getDay()];
     return weekday;
 }
-
 const formatTime = (unixTimestamp) => {
     let date = new Date(unixTimestamp * 1000); // multiplied by 1000 so that the argument is in milliseconds
     let time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     return time;
 }
 
+// 1. get city weather calls display weather function
+async function getCityWeather(event) {
+    event.preventDefault();
+    let city = event.target.cityLookup.value;
+    let weatherRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
+    let weatherData = await weatherRes.json();
+    displayWeather(weatherData);
+}
+
+// 2. display weather function calls get forecast function
 function displayWeather(data) {
     console.log(data);
     let weatherDisplay = document.querySelector(".weatherDisplay");
@@ -77,63 +69,48 @@ function displayWeather(data) {
     let currHumid = document.querySelector("#currHumid");
     let humidity = '<img src="/images/raindrop.png" alt="" width="15px" /> ' + data.main.humidity + '% humid';
     currHumid.innerHTML = humidity;
+
+    getForecast(data.coord)
 }
 
-function displayForecast(data) {
-    // console.log(data);
-    // 5 day / 3 hour forecast data
-    // 24 hours/day / 3-hour windows = 8 timestamps/day for 5 days
+// 3. get forecast function calls display forecast function
+async function getForecast(coordinates) {
+    let forecastRes = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}`)
+    let forecastData = await forecastRes.json();
+    // console.log(forecastData);
+    displayForecast(forecastData);
+}
 
+// 4. display forecast function
+function displayForecast(data) {
+    console.log(data);
+
+    let dailyForecast = data.daily;
     let forecastDisplay = document.querySelector(".forecastDisplay");
     forecastDisplay.innerHTML = '';
-
-    list = data.list;
-    list.forEach((listDay, idx) => {
-        if (idx == 0 | idx == 8 |  idx == 16 | idx == 24 | idx == 32) {
-            let forecastDay = document.createElement('div');
-            forecastDay.innerHTML = `<h1>${formatDate(listDay.dt)}</h1>`;
-            forecastDisplay.append(forecastDay);
+    dailyForecast.forEach((day, idx) => {
+        if (idx < 7) {
+            let daysForecastContainer = `<div class="row d-flex flex-nowrap justify-content-end align-items-center m-2 border rounded-4">`;
+            let forecastDay = `<div class="col"><h5>${formatDate(day.dt)}</h5></div>`;
+            let forecastImgElement = `<div class="col"><img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="" width="50px" /></div>`;
+            let minTemp = `<div class="col"><h6 class="text-danger">${formatTemp(day.temp.min)}</h6></div>`
+            let line = `<div class="col"><hr></div>`
+            let maxTemp = `<div class="col"><h6 class="text-success">${formatTemp(day.temp.max)}</h6></div>`
+            daysForecastContainer = 
+                daysForecastContainer + 
+                    forecastDay + 
+                    forecastImgElement + 
+                    minTemp + 
+                    line + 
+                    maxTemp + 
+                    `</div>`;
+            forecastDisplay.innerHTML += daysForecastContainer;
         }
-
-        let forecastDayCont = document.createElement('div');
-        forecastDayCont.className = 'col col-lg-1.5 col-md-2 col-sm-3 bg-opacity-50 bg-dark border border-light border-opacity-25 rounded-3 m-1';
-        
-        let forecastTime = document.createElement('h5');
-        forecastTime.innerHTML = formatTime(listDay.dt);
-        
-        let forecastImgElement = document.createElement('div');
-        let icon =  listDay.weather[0].icon;
-        forecastImgElement.innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}@2x.png" alt="" width="75px" />`;
-        
-
-        let dayTempElement = document.createElement('div');
-        dayTempElement.className = 'row row-cols-lg-3 row-cols-md-1 d-flex justify-content-between align-items-center';
-        
-        let minTempElement = document.createElement('div');
-        minTempElement.className = 'col text-danger';
-        minTempElement.innerHTML = `<h6>${formatTemp(listDay.main.temp_min)}</h6>`;
-        
-        let currTempElement = document.createElement('div');
-        currTempElement.className = 'col';
-        currTempElement.innerHTML = `<h5>${formatTemp(listDay.main.temp)}</h5>`;
-        
-        let maxTempElement = document.createElement('div');
-        maxTempElement.className = 'col text-success';
-        maxTempElement.innerHTML = `<h6>${formatTemp(listDay.main.temp_max)}</h6>`;
-
-
-        dayTempElement.append(minTempElement);
-        dayTempElement.append(currTempElement);
-        dayTempElement.append(maxTempElement);
-        
-        forecastDayCont.append(forecastTime);
-        forecastDayCont.append(forecastImgElement);        
-        forecastDayCont.append(dayTempElement);
-        
-        forecastDisplay.append(forecastDayCont);
-
-        }
-    )
-        
-    
+    })
 }
+
+let searchForm = document.querySelector('#searchForm');
+searchForm.addEventListener('submit', getCityWeather); // Add handleSubmit function as listener to submit event on form
+
+let currLocation = document.querySelector('#currLocation');
+currLocation.addEventListener('click', getCurrentLocation);
