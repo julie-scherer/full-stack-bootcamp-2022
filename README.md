@@ -2,7 +2,7 @@
 Here you will find all of my assignments and projects completed during the full-time Coding Temple bootcamp for software engineering and web development in summer of 2022.
 
 ## Module 1: Command Line, Git, HTML5, CSS, Bootstrap
-- Crafted meticulously detailed replicas of landing pages and dashboards including the [Amazon login page](https://nimble-choux-fe16d1.netlify.app/) and a [Theatre Featured Shows page](https://musical-kitsune-40b761.netlify.app/) utilizing CSS Grid, Flexbox, and Bootstrap
+- Crafted meticulously detailed replicas of landing pages and dashboards including the [Amazon login page](https://github.com/schererjulie/CodingTempleBootcamp/tree/main/html-css/amazon_replica) and a [Theatre Featured Shows page](https://musical-kitsune-40b761.netlify.app/) utilizing CSS Grid, Flexbox, and Bootstrap
 - Collaborated on a Github group project where we build a static user-facing CRM with HTML5 and CSS -- Check it out [here](https://schererjulie.github.io/ReplicaCRM/)!
 
 ## Modules 2, 3, 4: Python
