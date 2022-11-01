@@ -29,7 +29,7 @@ Here you will find all of my assignments and projects completed during the full-
 
 
 ## Module 7: React
-- Developed a [Social Media Blog](https://github.com/schererjulie/ReactSocialMediaBlog) that calls the GET, POST, EDIT, and DELETE methods from a Flask API and consequently updates the state component when an event is triggered
+- Developed a [Social Media Blog](https://sprightly-beignet-954dcf.netlify.app/) that calls the GET, POST, EDIT, and DELETE methods from a Flask API and consequently updates the state component when an event is triggered
 - Create a silly ["Meme Roster"](https://effortless-rolypoly-47fd5a.netlify.app/) that generates a random meme for each of the students in my cohort, as well as a fun fact of the day and joke of the day
 
 
